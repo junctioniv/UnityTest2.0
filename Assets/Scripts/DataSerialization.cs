@@ -10,17 +10,19 @@ using UnityEditor;
 public class DataSerialization : MonoBehaviour
 {
     public static void Save()
-    {
-        float f = 1f;
-		var temp = f.GetType().Name;
-        String fileName = "C:\\Temp\\prefs.xml"; //read User Input, store at game base url
-        SaveKeysToFile(fileName, ReadRegistryKeyValues());
-    }
+	{
+		if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) {
+
+			String fileName = "C:\\Temp\\prefs.xml"; //read User Input, store at game base url
+			SaveKeysToFile (fileName, ReadRegistryKeyValues ());
+		}
+	}
     public static void Load()
     {
-        String fileName = "C:\\Temp\\prefs.xml"; //read User Input, store at game base url
-        LoadPlayerPrefs(LoadKeysFromnFile(fileName));
-
+		if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) {
+			String fileName = "C:\\Temp\\prefs.xml"; //read User Input, store at game base url
+			LoadPlayerPrefs (LoadKeysFromnFile (fileName));
+		}
     }
 
     private static void LoadPlayerPrefs(List<PrefrenceKey> keys)
